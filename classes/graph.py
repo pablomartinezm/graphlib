@@ -1,0 +1,8 @@
+'''
+Graph
+'''
+
+class Graph:
+	pass
+
+

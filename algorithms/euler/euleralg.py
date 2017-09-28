@@ -1,0 +1,2 @@
+def euler(G):
+	pass

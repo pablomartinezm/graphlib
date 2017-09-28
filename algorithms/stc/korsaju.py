@@ -1,0 +1,2 @@
+def korsaju(G):
+	pass
