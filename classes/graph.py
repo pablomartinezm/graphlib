@@ -1,4 +1,5 @@
-__author__ = """\n""".join(['Sergio Montoya de Paco <sergio.mp1710@gmail.com>'])
+__author__ = """\n""".join(['Sergio Montoya de Paco <sergio.mp1710@gmail.com>',
+                            'Daniel Monzonís Laparra <dani.monzonis@gmail.com>'])
 """
 Clase Graph, que representa un grafo (conjunto de vértices y aristas). La clase representa un grafo no dirigido, por lo tanto,
 las aristas que unen dos vértices son bidireccionales.
