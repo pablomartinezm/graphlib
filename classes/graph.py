@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 __author__ = """\n""".join(['Sergio Montoya de Paco <sergio.mp1710@gmail.com>',
                             'Daniel Monzonís Laparra <dani.monzonis@gmail.com>'])
 
