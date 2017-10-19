@@ -5,5 +5,5 @@ GraphLib es una librería colaborativa desarrollada por alumnos del curso Algori
 
 # Requisitos de un P&R
 
-* El código tiene que estar comentado en formato ``Sphinx``
-* El código tiene que seguir el formato PEP8
+* El código tiene que estar comentado en formato [Sphinx](http://www.sphinx-doc.org/en/stable/)
+* El código tiene que seguir el formato [PEP8](https://www.python.org/dev/peps/pep-0008/)
