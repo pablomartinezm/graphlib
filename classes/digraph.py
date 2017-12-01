@@ -39,3 +39,15 @@ class DiGraph(Graph):
                 self._edges[node1][node2] = edge_dict
         else:
             self._edges[node1].update({node2: edge_dict})
+
+    def remove_edge(self, node1, node2):
+        """Elimina la arista (node1,node2) del grafo."""
+        if node1 not in self._edges:
+            raise ValueError("El nodo " + str(node1) + " no existe")
+        if node2 not in self._edges:
+            raise ValueError("El nodo " + str(node2) + " no existe")
+        if node2 not in self._edges[node1]:
+            raise ValueError("El nodo " + str(node1) + " no está conectado con el nodo " + str(node2))
+
+        del self._edges[node1][node2]
+
