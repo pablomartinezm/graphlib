@@ -40,6 +40,21 @@ class DiGraph(Graph):
         else:
             self._edges[node1].update({node2: edge_dict})
 
+    def remove_node(self, node):
+        """Elimina el nodo del grafo, así como todas las aristas que entran y salen de él."""
+        if node not in self._nodes:
+            raise ValueError("El nodo " + str(node) + " no existe")
+
+        # Primero eliminamos el nodo del conjunto de nodos
+        del self._nodes[node]
+
+        # Eliminamos los ejes que salen del nodo y los que inciden en él
+        if node in self._edges:
+            edges_list_to_remove = [other for other in self._edges.keys() if node in self._edges[other]]
+            del self._edges[node]
+            for other in edges_list_to_remove:
+                del self._edges[other][node]
+
     def remove_edge(self, node1, node2):
         """Elimina la arista (node1,node2) del grafo."""
         if node1 not in self._edges:
