@@ -175,3 +175,15 @@ class Graph:
         """
         for edge in edge_list:
             self.remove_edge(edge[0], edge[1])
+
+    def is_eulerian(self):
+        """Returns True if the graph is eulerian, that is, if it's connected and all vertices have even degree, or False otherwise."""
+        for node in self.nodes:
+            if (self.degree(node) % 2) != 0:
+                return False
+        return True
+
+    def is_semi_eulerian(self):
+        """Returns True if the graph is semi-eulerian, that is, if it's connected and there are exactly two vertices with odd degree."""
+        odd_degrees = [d for d in [self.degree(node) for node in self.nodes] if d % 2 != 0]
+        return len(odd_degrees) == 2
