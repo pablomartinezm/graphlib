@@ -176,8 +176,31 @@ class Graph:
         for edge in edge_list:
             self.remove_edge(edge[0], edge[1])
 
+    def is_connected(self):
+        """Returns True if the graph is connected, False otherwise."""
+        visited = set()
+        origin = self.nodes()[0]  # Take first node in the graph
+        queue = [origin]
+        visited.add(origin)
+        # BFS
+        while queue:
+            u = queue.pop()
+            # Visit unvisited neighbors
+            for v in self[u].keys():
+                if v not in visited:
+                    visited.add(v)
+                    queue.append(v)
+
+        # After BFS, if we have unvisited nodes, the graph is not connected
+        for node in self.nodes():
+            if node not in visited:
+                return False
+        return True
+
     def is_eulerian(self):
         """Returns True if the graph is eulerian, that is, if it's connected and all vertices have even degree, or False otherwise."""
+        if not self.is_connected():
+            return False
         for node in self.nodes:
             if (self.degree(node) % 2) != 0:
                 return False
@@ -185,5 +208,7 @@ class Graph:
 
     def is_semi_eulerian(self):
         """Returns True if the graph is semi-eulerian, that is, if it's connected and there are exactly two vertices with odd degree."""
+        if not self.is_connected():
+            return False
         odd_degrees = [d for d in [self.degree(node) for node in self.nodes] if d % 2 != 0]
         return len(odd_degrees) == 2
