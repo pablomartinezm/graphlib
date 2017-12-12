@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
+import matplotlib.pyplot as plt
+import networkx as nx
+
 __author__ = """\n""".join(['Sergio Montoya de Paco <sergio.mp1710@gmail.com>',
                             'Daniel Monzonís Laparra <dani.monzonis@gmail.com>'])
-
 
 class Graph:
     """
@@ -175,3 +177,26 @@ class Graph:
         """
         for edge in edge_list:
             self.remove_edge(edge[0], edge[1])
+            
+    def to_nx(self):
+        
+        #Este algoritmo convierte un grafo de la libreria graphlib a un grafo de la libreria networkx
+        #Output N: grafo de la libreria networkx 
+        N = nx.Graph()
+        
+        for node in self.node:
+            N.add_node(node, self.node[node])
+            
+        edges = []
+        for start_node in self.edge:
+            for end_node in self.edge[start_node]:
+                edges.append((start_node, end_node, self.edge[start_node][end_node]))
+        N.add_edges_from(edges)
+        
+        return N
+    def show(self):
+        #Este metodo dibuja un grafo de la libreria graphlib
+        N = self.to_nx()
+        pos = nx.circular_layout(N)
+        nx.draw(N, pos, with_labels =True)
+        plt.show()
