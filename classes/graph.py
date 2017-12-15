@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import matplotlib.pyplot as plt
+import networkx as nx
+
 __author__ = """\n""".join(['Sergio Montoya de Paco <sergio.mp1710@gmail.com>',
                             'Daniel Monzonís Laparra <dani.monzonis@gmail.com>'])
 
@@ -21,7 +24,7 @@ class Graph:
     @property
     def edge(self):
         """
-        (Atributo) Conjunto de aristas en un diccionario, donde la key es un nodo y los value son diccionarios, 
+        (Atributo) Conjunto de aristas en un diccionario, donde la key es un nodo y los value son diccionarios,
         donde la key es el nodo al que va la arista y el value los atributos de dicha arista.
         """
         return self._edges
@@ -63,7 +66,7 @@ class Graph:
 
     def add_edge(self, node1, node2, attr_dict=None):
         """
-        Añade una arista al diccionario de aristas, si uno de los nodos especificados no existe, se creará el nodo de forma implícita. 
+        Añade una arista al diccionario de aristas, si uno de los nodos especificados no existe, se creará el nodo de forma implícita.
         'attr_dict' especifica un atributo para la arista, si ya contenía un atributo, se añade al diccionario de atributos.
         """
         if attr_dict is None:
@@ -98,7 +101,7 @@ class Graph:
 
     def add_edges_from(self, edge_list, attr_dict=None):
         """
-        Añade todas las aristas especificadas en la lista 'edge_list' [(nodo1,nodo2),(nodo2,nodo3),...], a todas les añade 
+        Añade todas las aristas especificadas en la lista 'edge_list' [(nodo1,nodo2),(nodo2,nodo3),...], a todas les añade
         los atributos especificados en 'attr_dict'.
         """
         for new_edge in edge_list:
@@ -162,7 +165,7 @@ class Graph:
 
     def remove_nodes_from(self, node_list):
         """
-        Elimina todos los nodos especificados en la lista de nodos 'node_list' [nodo1,nodo2,...]. De igual forma que en la 
+        Elimina todos los nodos especificados en la lista de nodos 'node_list' [nodo1,nodo2,...]. De igual forma que en la
         función remove_node, se elimina el nodo y todas sus aristas incidentes.
         """
         for node in node_list:
@@ -198,7 +201,10 @@ class Graph:
         return True
 
     def is_eulerian(self):
-        """Returns True if the graph is eulerian, that is, if it's connected and all vertices have even degree, or False otherwise."""
+        """Return whether the graph is eulerian.
+
+        A graph is eulerian if it's connected and all vertices have even degree.
+        """
         if not self.is_connected():
             return False
         for node in self.nodes():
@@ -207,8 +213,36 @@ class Graph:
         return True
 
     def is_semi_eulerian(self):
-        """Returns True if the graph is semi-eulerian, that is, if it's connected and there are exactly two vertices with odd degree."""
+        """Return whether the graph is semi-eulerian.
+
+        A graph is semi-eulerian if it's connected and there are exactly two vertices with
+        odd degree.
+        """
         if not self.is_connected():
             return False
         odd_nodes = [node for node in self.nodes() if self.degree(node) % 2 != 0]
         return len(odd_nodes) == 2
+
+    def to_nx(self):
+
+        # Este algoritmo convierte un grafo de la libreria graphlib a un grafo de la libreria networkx
+        # Output N: grafo de la libreria networkx
+        N = nx.Graph()
+
+        for node in self.node:
+            N.add_node(node, self.node[node])
+
+        edges = []
+        for start_node in self.edge:
+            for end_node in self.edge[start_node]:
+                edges.append((start_node, end_node, self.edge[start_node][end_node]))
+        N.add_edges_from(edges)
+
+        return N
+
+    def show(self):
+        # Este metodo dibuja un grafo de la libreria graphlib
+        N = self.to_nx()
+        pos = nx.circular_layout(N)
+        nx.draw(N, pos, with_labels=True)
+        plt.show()
