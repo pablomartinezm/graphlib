@@ -1,1 +1,1 @@
-from korsaju import korsaju
+from .korsaju import korsaju
